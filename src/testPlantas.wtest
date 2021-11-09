@@ -1,0 +1,48 @@
+import plantas.*
+import parcelas.*
+
+describe "tests" {
+
+	const menta_1 = new Menta(altura = 1, anioObtencionSemilla = 2008)
+	const menta_2 = new Menta(altura = 0.3, anioObtencionSemilla = 2011)
+	const soja_1 = new Soja(altura = 0.6, anioObtencionSemilla = 2009)
+	const soja_2 = new Soja(altura = 3, anioObtencionSemilla = 2000)
+	const soja_3 = new Soja(altura = 4, anioObtencionSemilla = 2001)
+	const soja_4 = new Soja(altura = 5, anioObtencionSemilla = 2002)
+	const soja_5 = new Soja(altura = 6, anioObtencionSemilla = 2003)
+	const quinoa_1 = new Quinoa(altura = 2, horasSolTolera = 12, anioObtencionSemilla = 2010)
+	const quinoa_2 = new Quinoa(altura = 3, horasSolTolera = 9, anioObtencionSemilla = 2001)
+	const parcela_1 = new Industrial(ancho = 20, largo = 1, horasDeSolQueRecibe = 8)
+
+	test "Menta" {
+		assert.that(menta_1.daNuevasSemillas())
+		assert.equals(menta_1.espacioPlantada(), 3)
+		assert.notThat(menta_2.daNuevasSemillas())
+		assert.equals(menta_2.espacioPlantada(), 0.9)
+	}
+
+	test "Soja" {
+		assert.equals(soja_1.horasSolTolera(), 7)
+		assert.notThat(soja_1.daNuevasSemillas())
+		assert.equals(soja_1.espacioPlantada(), 0.3)
+	}
+
+	test "Quinoa" {
+		assert.that(quinoa_1.daNuevasSemillas())
+		assert.that(quinoa_2.daNuevasSemillas())
+	}
+
+	test "Parcela" {
+		assert.equals(parcela_1.cantidadMaxPlantasQueTolera(), 4)
+	}
+
+	test "Parcela luego de agregar 4 plantas de soja" {
+		parcela_1.plantar(soja_2)
+		parcela_1.plantar(soja_3)
+		parcela_1.plantar(soja_4)
+		parcela_1.plantar(soja_5)
+		assert.notThat(parcela_1.tieneComplicaciones())
+	}
+
+}
+
